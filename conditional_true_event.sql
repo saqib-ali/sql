@@ -1,6 +1,5 @@
 select
-  '' 
-  , symbol
+  symbol
   , date
   , close
   , row_number() over (partition by symbol order by date) as day
