@@ -10,13 +10,15 @@ insert into scratch.saqib_ali.TRANSACTIONS values (7, 20, '2022-12-02', 'store')
 select * from scratch.saqib_ali.TRANSACTIONS;
 
 
+
+
 -- With RATIO_TO_REPORT
 select
   transaction_date
   , channel
-  , sum(amount) as total_by_channel
-  , sum(total_by_channel) over (partition by transaction_date) as total_online_and_store
-  , ((total_by_channel / total_online_and_store) * 100)::NUMBER || '%' as channel_percentage
+  , sum(amount) as total_sales
+  , ratio_to_report(total_sales) over (partition by transaction_date) 
+    as channel_percentage
 from scratch.saqib_ali.TRANSACTIONS 
 group by transaction_date, channel;
 
@@ -28,8 +30,11 @@ group by transaction_date, channel;
 select
   transaction_date
   , channel
-  , sum(amount) as total_sales
-  , ratio_to_report(total_sales) over (partition by transaction_date) 
-    as channel_percentage
+  , sum(amount) as total_by_channel
+  , sum(total_by_channel) over (partition by transaction_date) as total_online_and_store
+  , ((total_by_channel / total_online_and_store) * 100)::NUMBER || '%' as channel_percentage
 from scratch.saqib_ali.TRANSACTIONS 
 group by transaction_date, channel;
+
+
+
