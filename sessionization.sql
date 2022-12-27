@@ -1,3 +1,10 @@
+-- Sessionization is the act of turning event-based data into sessions, the ordered list of a user’s actions in completing a task. 
+-- It is widely used in several domains, such as: Web Analytics and Trip Analytics. 
+-- So given a “user id” or a “machine id”, the question is: how can we recreate sessions? 
+-- Or more precisely, how do we choose the boundaries of a session?
+-- A session, for example can be defined by threshold time such as if the next action is in a range of time greater than T, 
+-- it defines the start of a new session.
+
 create or replace table clickstream (post_visid_high number, post_visid_low number, date_time timestamp);
 insert into clickstream values (1,0, '2013-09-04T15:49:49');
 insert into clickstream values (1,0, '2013-09-04T15:49:58');
